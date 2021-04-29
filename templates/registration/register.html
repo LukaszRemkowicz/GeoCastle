@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">-->
+	<title>Bootstrap Sign up Form Horizontal</title>
+<!--	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<!--	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+	<link rel="stylesheet" href="{% static 'register_css.css' %}">
+
+</head>
+
+<div class="1111">
+<div class="signup-form">
+    <form action="{% url 'register' %}" method="post" class="form-horizontal">
+		<link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+		{% csrf_token %}
+		<div class="col-xs-8 col-xs-offset-4" >
+			<h2>Sign Up</h2>
+		</div>
+		{% for field in form %}
+			<div class="form-group">
+				<label class="control-label col-xs-4">{{ field.label }}</label>
+				 <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}"
+						name="{{ field.html_name }}" required="required" style="width: 250px">
+				<div class="col-xs-8">
+				</div>
+        	</div>
+		{% endfor %}
+		<div class="form-group" >
+
+			{{ form.errors }}
+
+			<div class="col-xs-8 col-xs-offset-4">
+<!--				<p><label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#" style="color: orange">Terms of Use</a> &amp; <a href="#" style="color: orange">Privacy Policy</a>.</label></p>-->
+				<button type="submit" class="btn btn-primary btn-lg hovers" style="background-color: orange" href="{% url 'home' %}">Sign Up</button>
+			</div>
+		</div>
+
+
+	</form>
+</div>
+</div>
+    <div class="text-center">Already have an account? <a href="{% url 'login' %}" style="color: orange">Login here</a></div>
+{% endblock %}

@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{#{% block head_title %}About || {{ block.super }}{% endblock head_title %}#}
+
+{% block content %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'user_profile.css' %}">
+    <style>
+        [id='comments']{
+            position: relative;
+            right: 100px;
+            width: 628px;
+        }
+        [id='comment_section']{
+            position: relative;
+            top: 100px;
+        }
+        [id="name"]{
+            position: relative;
+            left: 130px;
+            top: 20px
+        }
+        [id='follow_btn']{
+            position: relative;
+            bottom: 20px;
+        }
+    </style>
+
+<body style="height: 1600px">
+<div class="container" style="height: 200%;">
+        <div class="">
+            <div class="col-md-12 col-sm-12 col-xs-12 image-section" id="map_section">
+                {{ map|safe }} 
+            </div>
+            <div class="user-left-part">
+                <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
+                    <div class="row ">
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+                            <img src="{{ user.profile.image.url }}">
+                        </div>
+                      <div class="col-md-12 profile-header" id="name">
+                            <div class="row">
+                                <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
+                                    <h1>{{ user.username }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center" id="follow_btn">
+                            <button class="btn btn-defult follow "><i class="fa fa-user-o" aria-hidden="true" ></i> FOLLOW</button>
+                        </div>
+                        <div class="row user-detail-row">
+                            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                            <div class="border"></div>
+                                <p>FOLLOWER</p>
+                                <span>{{ follow }}</span>
+                            </div>
+                            <div class="col-md-12 col-sm-12 user-detail-section2 pull-right">
+                                <div class="border"></div>
+                                <p>FOLLOWING</p>
+                                <span>{{ follows }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 user-detail-section2">
+                            <div class="border"></div>
+                            <p>PERFORMANCE</p>
+                            <span>{{ location_count }}<small> visited and </small> {{ review_count }} <small> reviews</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
+                    <div class="row profile-right-section-row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8  profile-tag-section text-center">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3 profile-tag">
+                                            <a href="#"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></a>
+                                            <p>info</p>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 profile-tag">
+                                            <a href="#"><i class="fa fa-address-book" aria-hidden="true"></i></a>
+                                            <p>feed</p>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 profile-tag">
+                                            <a href="#"><i class="fa fa-id-card-o" aria-hidden="true"></i></a>
+                                            <p>Agenda</p>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 profile-tag">
+                                            <a href="#"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
+                                            <p>Resume</p>
+                                        </div>
+                                        <div class="row d-flex justify-content-center mt-100 mb-100" id='comment_section'>
+                                            <div class="col-lg-6">
+                                                <div class="card">
+                                                    <div class="card-body text-center">
+                                                        <h4 class="card-title">Latest Comments</h4>
+                                                    </div>
+                                                <form method="post" enctype="multipart/form-data" href="{% url 'profiles:your_profile' %}">
+                                                    {% csrf_token %}
+                                                    {% for location in review %}
+
+                                                          <!-- Its not a good solution, becouse there should be another template render, but still good enough -->
+
+                                                        <label>
+                                                            <input style="size: 1px; display: None" type="hidden" value="{{ location.id }}" id="loc{{ location.id }}" disabled name="loc_id">
+                                                        </label>
+                                                        <div class="comment-widgets">
+
+                                                            <div class="d-flex flex-row comment-row m-t-0" id='comments'>
+                                                                <div class="p-2">
+                                                                        {{ location.name }}
+                                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/KB_Zamek_Krzy%C5%BCacki_w_Bytowie.jpg" alt="user" width="100" class=""></div>
+                                                                <div class="comment-text w-100  container-fluid">
+
+                                                                    <h6 class="font-medium"></h6>
+                                                                                <div>
+                                                                                    <label>
+                                                                                    </label>
+                                                                                    <span class="m-b-15 d-block" style="position: center">
+                                                                                        <label>
+                                                                                            <input type="text" value="{{ location.review }}" id="edit{{ location.id }}" disabled name="labelowski">
+                                                                                        </label>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="comment-footer position-relative fixed-bottom" style="top: 30px">
+                                                                                    <span class="text-muted float-right">{{ location.created }}</span>
+                                                                                    <div class="container-fluid col-md-6 position-relative fixed-bottom">
+                                                                                        <div id="edit">
+                                                                                            <button type="button" class="btn btn-cyan btn-sm " style="position: center" id="edit-button"
+                                                                                                    onclick="document.getElementById('edit{{ location.id }}').removeAttribute('disabled');document.getElementById('loc{{ location.id }}').removeAttribute('disabled')">Edit</button>
+                                                                                            <button type="submit" class="btn btn-success btn-sm" id="end-editing"
+                                                                                                    onclick="document.getElementById('edit{{ location.id }}').setAttribute(disalbed = 'disabled');document.getElementById('loc{{ location.id }}').removeAttribute('disabled') ">Done!</button>
+                                                                                            <button type="submit" href="" id="delete_but{{ location.id }}" class="btn btn-danger btn-sm" name='delete_but' onclick="document.getElementById('delete_but{{ location.id }}').setAttribute(value='deleting{{ location.id }}');">Delete</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                </div>
+                                                            <br>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </form>
+
+
+
+
+{#                                                        </div> <!-- Comment Row -->#}
+{#                                                        <div class="d-flex flex-row comment-row" id='comments'>#}
+{#                                                            <div class="p-2"><img src="https://www.slaskibiznes.pl/images/galbig3/news/1655/zamek-noc-lipiec-005jkobryn_5d415b39787788_20274631.jpg.jpg" alt="user" width="100" class=""></div>#}
+{#                                                            <div class="comment-text active w-100">#}
+{#                                                                <h6 class="font-medium">{{ user.username }}</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>#}
+{#                                                                <div class="comment-footer"> <span class="text-muted float-right">May 10, 2019</span> <button type="button" class="btn btn-cyan btn-sm">Edit</button> <button type="button" class="btn btn-success btn-sm">Publish</button> <button type="button" class="btn btn-danger btn-sm">Delete</button> </div>#}
+{#                                                            </div>#}
+{#                                                        </div> <!-- Comment Row -->#}
+{#                                                        <div class="d-flex flex-row comment-row" id='comments'>#}
+{#                                                            <div class="p-2"><img src="https://sacr3-files.s3-eu-west-1.amazonaws.com/_processed_/csm_Bojnick%25C3%25BD%2520z%25C3%25A1mok%2520Banner%2520039_6c5b483181.jpg" alt="user" width="100" class=""></div>#}
+{#                                                            <div class="comment-text w-100">#}
+{#                                                                <h6 class="font-medium">{{ user.username }}</h6> <span class="m-b-15 d-block">Great industry leaders are not the real heroes of stock market. </span>#}
+{#                                                                <div class="comment-footer"> <span class="text-muted float-right">August 1, 2019</span> <button type="button" class="btn btn-cyan btn-sm">Edit</button> <button type="button" class="btn btn-success btn-sm">Publish</button> <button type="button" class="btn btn-danger btn-sm">Delete</button> </div>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function click_btn(){
+        const get_id = document.getElementById('delete_but{{ location.id }}')
+        get_id.setAttribute(name='delete_but');
+        get_id.setAttribute(value='del')
+    }
+
+</script>
+
+{#<script>#}
+{#    const paragraph = document.getElementById("edit");#}
+{#    const edit_button = document.getElementById("edit-button");#}
+{#    const end_button = document.getElementById("end-editing");#}
+{##}
+    {#const paragraph = document.querySelectorAll('[id^="edit"]');#}
+    {#const edit_button = document.querySelectorAll('[id^="edit-button"]');#}
+    {#const end_button = document.querySelectorAll('[id^="end-editing"]');#}
+{##}
+{#    edit_button.addEventListener("click", function() {#}
+{#      paragraph.contentEditable = true;#}
+{##}
+{#    } );#}
+{##}
+{#    end_button.addEventListener("click", function() {#}
+{#      paragraph.contentEditable = false;#}
+{##}
+{#    } )#}
+{#</script>#}
+</body>
+{% endblock content %}}

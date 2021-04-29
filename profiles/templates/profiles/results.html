@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{#{% block head_title %}About || {{ block.super }}{% endblock head_title %}#}
+
+{% block content %}
+<h2>result:
+</h2>
+    <form method="get" >
+        {% for user in search_result %}
+            <a href="{% url 'users_profile' %}?u={{ user.user.username }}">
+
+            {{ user.user.username }}
+
+            <br>
+        {% endfor %}
+    </a>
+    </form>
+{% endblock content %}}

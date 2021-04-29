@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block head_title %}Welcome || {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+    <h1>Hello again</h1>
+    <p>Hope it's the {{ number }} time</p>
+    <p>Random {{ num }}</p>
+    <p>
+        {% for some_item in some_list %}
+            {% if some_item|divisibleby:"2" %}
+                Even number
+            {% endif %}
+
+            {{ some_item }}<br/>
+        {% endfor %}
+    </p>
+    <p>some item is {{ some_item }}</p>
+{% endblock content %}

@@ -1,0 +1,52 @@
+
+ input, textarea {
+   width: 100%;
+   padding: 0.5em;
+   border: none;
+   font: 300 100%/1.2 Ubuntu, sans-serif;
+
+ }
+ input[type="text"], input[type="email"], textarea {
+   margin: 0 0 1em;
+   border: 1px solid #ccc;
+   outline: none;
+ }
+ input.invalid, textarea.invalid {
+   border-color: #d5144d;
+ }
+ textarea {
+   height: 6em;
+ }
+ [id="submitcontactform"] {
+   background: orange; !important;
+   color: #333;
+ }
+[id="submitcontactform"]:hover, button:hover {
+   background: #91b36f;
+ }
+
+
+ @media screen and (min-width: 48em) {
+   #contact-forms {
+     text-align: justify;
+     line-height: 0;
+   }
+   #contact-forms:after {
+     content: '';
+     display: inline-block;
+     width: 100%;
+   }
+   #contact-forms h2 {
+     margin-left: 17.2661%;
+   }
+   #contact-form forms, #contact-form aside {
+     vertical-align: top;
+     display: inline-block;
+     width: 65.4676%;
+     text-align: left;
+     line-height: 1.5;
+   }
+   #contact-form aside {
+     width: 30.9353%;
+   }
+ }

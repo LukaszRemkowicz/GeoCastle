@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{#{% block head_title %}About || {{ block.super }}{% endblock head_title %}#}
+
+{% block content %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'user_profile.css' %}">
+    <style>
+        [id='comments']{
+            position: relative;
+            right: 100px;
+            width: 628px;
+        }
+        [id='comment_section']{
+            position: relative;
+            top: 100px;
+        }
+        [id="map_section"]{
+            height: 500px;
+
+        }
+        [id="name"]{
+            position: relative;
+            left: 130px;
+            top: 20px
+        }
+        [id='follow_btn']{
+            position: relative;
+            bottom: 20px;
+        }
+    </style>
+
+<body style="height: 1600px">
+<div class="container main-secction" style="height: 200%;">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 image-section" id="map_section">
+                <img src="{% static 'DM.jpg' %}" style="height: 500px">
+            </div>
+            <div class="row user-left-part">
+                <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
+                    <div class="row ">
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+                            <img src="{{ users.profile.image.url }}">
+                        </div>
+                      <div class="col-md-12 profile-header" id="name">
+                            <div class="row">
+                                <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
+                                    <h1>{{ users.username }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center" id="follow_btn">
+                            <form method="post" action="">
+                            <button class="btn btn-defult follow "><i class="fa fa-user-o" aria-hidden="true"></i> FOLLOW</button>
+                             </form>
+                        </div>
+                        <div class="row user-detail-row">
+                            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                            <div class="border"></div>
+                                <p>FOLLOWER</p>
+                                <span>{{ follow }}</span>
+                            </div>
+                            <div class="col-md-12 col-sm-12 user-detail-section2 pull-right">
+                                <div class="border"></div>
+                                <p>FOLLOWING</p>
+                                <span>{{ follows }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 user-detail-section2">
+                            <div class="border"></div>
+                            <p>PERFORMANCE</p>
+                            <span> {{ location_count }} <small>visited and </small>{{ review_count }}<small> reviews</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
+                    <div class="row profile-right-section-row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8  profile-tag-section text-center">
+                                    <div class="row">
+                                        <div class="row d-flex justify-content-center mt-100 mb-100" id='comment_section'>
+                                            <div class="col-lg-6">
+                                                <div class="card">
+                                                    <div class="card-body text-center">
+                                                        <h4 class="card-title">Latest Comments</h4>
+                                                    </div>
+{#                                                    {{ review }}#}
+                                                    {% for location in locations %}
+                                                        {% if location.review %}
+
+                                                        <div class="comment-widgets">
+
+                                                            <div class="d-flex flex-row comment-row m-t-0" id='comments'>
+                                                                <div class="p-2">
+                                                                    {{ location.name }}
+
+                                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/KB_Zamek_Krzy%C5%BCacki_w_Bytowie.jpg" alt="user" width="100" class=""></div>
+                                                                <div class="comment-text w-100  container-fluid">
+
+                                                                    <h6 class="font-medium"></h6>
+                                                                    <span class="m-b-15 d-block" style="position: center">{{ location.review }}</span>
+                                                                    <div class="comment-footer position-relative fixed-bottom" style="top: 30px">
+                                                                        <span class="text-muted float-right">{{ location.created }}</span>
+                                                                        <div class="container-fluid col-md-6 position-relative fixed-bottom">
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            <br>
+    {#                                                                    {% endfor %}#}
+    {#                                                                {% endfor %}#}
+                                                            </div>
+                                                        </div>
+                                                        {% endif %}
+                                                        {% endfor %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock content %}}

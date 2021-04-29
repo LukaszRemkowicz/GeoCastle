@@ -1,0 +1,34 @@
+
+
+.header-dark .navbar .navbar-brand {
+  font-weight:bold;
+  color:inherit;
+}
+
+.header-dark .navbar .navbar-brand:hover {
+  color:#f0f0f0;
+}
+
+.header-dark .navbar .navbar-collapse span {
+  margin-top:5px;
+}
+
+.header-dark .navbar .navbar-collapse span .login {
+  color:black;
+  margin-right:.5rem;
+  text-decoration:none;
+}
+
+
+.header-dark .navbar .action-button, .header-dark .navbar .action-button:active {
+  --tw-bg-opacity: 1;
+  background:rgba(249, 250, 251, var(--tw-bg-opacity));
+  border-radius:20px;
+  font-size:inherit;
+  color:#fff;
+  box-shadow:none;
+  border:none;
+  text-shadow:none;
+  padding:.5rem .8rem;
+  transition:background-color 0.25s;
+}
